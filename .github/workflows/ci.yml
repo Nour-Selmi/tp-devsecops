@@ -13,17 +13,20 @@ DOCKER_IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/democyber:latest
 steps:
 # Checkout the code
 - name: Checkout repository
-uses: ac�ons/checkout@v3
+  uses: ac�ons/checkout@v3
 # Install Java
 - name: Set up JDK 21
-uses: ac�ons/setup-java@v3
-with:
-java-version: '21'
-distribu�on: 'temurin'
+  uses: ac�ons/setup-java@v3
+  with:
+  java-version: '21'
+  distribu�on: 'temurin'
 
 # Compile Java code
 - name: Compile Java
-run: mvn compile
+  run: mvn compile
 # Build Maven
 - name: Build Java project with Maven
-run: mvn clean package
+  run: mvn clean package
+# Gitleaks scan (before compilation)
+- name: Run Gitleaks scan
+  uses: zricethezav/gitleaks-action@v2
