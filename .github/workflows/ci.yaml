@@ -64,6 +64,12 @@ jobs:
           exit-code: '0'
           severity: 'CRITICAL,HIGH'
           ignore-unfixed: true
+      - name: Upload Trivy report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: trivy-report.json
 
       - name: Push Docker image
         run: docker push $DOCKER_IMAGE_NAME
